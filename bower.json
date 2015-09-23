@@ -1,0 +1,19 @@
+{
+  "name": "PhotoCat-front",
+  "version": "0.0.0",
+  "homepage": "https://github.com/Hrummer/PhotoCat-front",
+  "authors": [
+    "Hrummer <vadymhomyak@gmail.com>"
+  ],
+  "license": "none",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "~2.1.4"
+  }
+}
