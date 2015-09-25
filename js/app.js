@@ -10,19 +10,20 @@ function add(product, index, array){
 
     productsListUl.append(li);
 
-    li.find('.deleteBtn').on('click', function(){
-        array.splice(index,1);
-        refresh(array)
+    li.find('.deleteBtn').on('click', function () {
+        array.splice(index, 1);
+        refresh(array);
+        $.post('http://localhost:3000/products/'+index+'/delete')
     });
 
-    li.find(".editBtn").on("click", function(){
+    li.find(".editBtn").on("click", function () {
         li.find(".editBtn").hide();
         li.find(".editInput").show();
         li.find(".cancelBtn").show();
         li.find(".okayBtn").show();
     });
 
-    li.find(".cancelBtn").on("click", function(){
+    li.find(".cancelBtn").on("click", function () {
         var input = li.find(".editInput");
         input.val("");
         input.hide();
@@ -31,17 +32,18 @@ function add(product, index, array){
         li.find(".editBtn").show();
     });
 
-    li.find(".okayBtn").on("click", function(){
+    li.find(".okayBtn").on("click", function () {
         var input = li.find(".editInput");
         array[index] = input.val();
-        refresh(array)
+        refresh(array);
+        $.post('http://localhost:3000/products/'+index+'/edit', { editedProduct: array[index] })
     });
 }
 
 function refresh(array){
     productsInput.val("");
     productsListUl.html('');
-    array.forEach(function(product, index){
+    array.forEach(function (product, index) {
         add(product, index, array);
     })
 }
@@ -52,12 +54,13 @@ function addProduct(array){
     refresh(array)
 }
 
-$('.addProduct').on('click',function(){
-    addProduct(products)
+$('.addProduct').on('click',function () {
+    addProduct(products);
+    $.post('http://localhost:3000/products/add', { newProduct: products[products.length-1] })
 });
 
-$(".random").on("click",function(){
-    $.get('http://localhost:3000/list', function(data){
+$(".random").on("click",function () {
+    $.get('http://localhost:3000/products', function (data) {
         products = data;
         refresh(products);
     })
