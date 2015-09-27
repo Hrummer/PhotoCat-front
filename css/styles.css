@@ -1,3 +1,188 @@
-.editInput {display: none}
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,300italic,400italic,700italic&subset=latin,cyrillic);
+
+* {
+    margin: 0;
+    padding: 0;
+}
+
+a, button {
+    cursor: pointer;
+}
+
+body {
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 20px;
+    background-color: #EFF3F6;
+    height: 100%;
+}
+
+.header {
+    display: table;
+    width: 100%;
+    height: 80px;
+}
+
+.logo-place, .heading-place, .nav-place {
+    display: table-cell;
+    vertical-align: middle;
+    height: 10%;
+}
+
+.logo-place {
+    width: 15%;
+    text-align: center;
+    background: #354556;
+    color: #ffffff;
+}
+
+.logo-place_span {
+    font-weight: 700;
+}
+
+.heading-place {
+    width: 25%;
+    background: white;
+}
+
+.heading {
+    margin-left: 55px;
+    font-weight: 800;
+}
+
+.nav-place {
+    width: 60%;
+    background: white;
+    text-align: right;
+    padding-right: 25px;
+}
+
+.search {
+    padding: 5px 0 5px 40px;
+    border-radius: 5px;
+    background: url('') no-repeat 10px center;
+    height: 50%;
+}
+
+.loadBtn {
+    width: 100px;
+    background: #59c2e6;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    height: 50%;
+    outline: none;
+}
+
+.notification {
+    border-left: 2px solid #D0D8E0;
+    border-right: 2px solid #D0D8E0;
+    margin: 0 20px;
+    padding: 0 20px;
+}
+
+.exit {
+    text-decoration: none;
+}
+
+.aside {
+    width: 15%;
+    height: 100%;
+    background: #4F5F6F;
+    position: absolute;
+}
+
+.navigation {
+    width: 100%;
+}
+
+.navbar {
+    display: block;
+    padding: 7% 0;
+    font-weight: 300;
+    font-size: medium;
+    color: #AEB5BB;
+    transition: 0.33s;
+}
+
+.navbar img {
+    padding: 0 7%;
+    margin-bottom: -2%;
+}
+
+.navbar:active {
+    background-color: #2dc0e8;
+    color: #ffffff;
+}
+
+.navbar:hover {
+    background-color: #3d4f60;
+    color: #ffffff;
+    transition: 0.33s;
+}
+
+.main-container {
+    width: 85%;
+    height: 100%;
+    margin-left: 15%;
+}
+
+#products-manager {
+    padding: 2% 0 0 7%;
+}
+
+.listName {
+    font-weight: 600;
+}
+
+.editInput {
+    padding: 5px 0 5px 5px;
+    border-radius: 5px;
+    height: 50%;
+    display: none
+}
+
 .cancelBtn {display: none}
+
 .okayBtn {display: none}
+
+.productsInput {
+    padding: 5px 0 5px 5px;
+    border-radius: 5px;
+    height: 50%;
+}
+
+.addProduct {
+    width: 100px;
+    background: #59c2e6;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    line-height: 24px;
+    outline: none;
+}
+
+.productsList {
+    padding-top: 1.1%;
+    margin-left: 2%;
+}
+
+.productsList button {
+    width: 50px;
+    background: #59c2e6;
+    border-radius: 5px;
+    color: #fff;
+    text-align: center;
+    line-height: 20px;
+    outline: none;
+}
+
+input:hover {
+    background-color: #3d4f60;
+    color: #ffffff;
+    transition: 0.33s;
+}
+
+button:hover {
+    background-color:cornflowerblue ;
+}
