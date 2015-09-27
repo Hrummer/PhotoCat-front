@@ -6,19 +6,33 @@
     <title>PhotoCat</title>
 </head>
 <body>
-<header>Hi user</header>
-<section>
-    <button class="random">Click it</button>
-    <div class="container">
-        <h1>Products list</h1>
-        <input type="text" class="productsInput">
-        <button class="addProduct">Add Product</button>
-        <ul class="productsList"></ul>
-    </div>
+<header></header>
+<section id="main">
+
 </section>
 
 
 <script src="bower_components/jquery/dist/jquery.min.js"></script>
+<script src="bower_components/handlebars/handlebars.min.js"></script>
+<script id="mainTemplate" type="text/x-handlebars-template">
+    <div class="container">
+        <h1>Products list</h1>
+        <input type="text" class="productsInput">
+        <button class="addProduct">Add Product</button>
+        <ul class="productsList">
+            {{#each products as |product|}}
+            <li class="productsListItem" data-index="{{@index}}">
+                {{product.name}}
+                <button class="deleteBtn">Delete</button>
+                <input type="text" class="editInput">
+                <button class="editBtn">Edit</button>
+                <button class="cancelBtn">Cancel</button>
+                <button class="okayBtn">Okay</button>
+            </li>
+            {{/each}}
+        </ul>
+    </div>
+</script>
 <script src="js/app.js"></script>
 </body>
 </html>
