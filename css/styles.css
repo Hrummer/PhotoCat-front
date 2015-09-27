@@ -177,12 +177,15 @@ body {
     outline: none;
 }
 
+input {transition: 0.33s}
+button {transition: 0.33s}
+
 input:hover {
-    background-color: #3d4f60;
-    color: #ffffff;
+    background-color: #4F5F6F;
     transition: 0.33s;
 }
 
 button:hover {
-    background-color:cornflowerblue ;
+    background-color:cornflowerblue;
+    transition: 0.33s
 }
