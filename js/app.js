@@ -12,50 +12,10 @@ $(document).ready(function () {
     })
 });
 
-
-function add(product, index, id){
-    var li = $('');
-
-    li.find('.deleteBtn').on('click', function () {
-        $.post('http://localhost:3000/products/'+id+'/delete', function (err, data) {
-            if (!err && !!data) {
-                products.splice(index, 1);
-                renderProductsUI();
-            }
-        })
-    });
-
-    li.find(".editBtn").on("click", function () {
-        li.find(".editBtn").hide();
-        li.find(".editInput").show();
-        li.find(".cancelBtn").show();
-        li.find(".okayBtn").show();
-    });
-
-    li.find(".cancelBtn").on("click", function () {
-        var input = li.find(".editInput");
-        input.val("");
-        input.hide();
-        li.find(".cancelBtn").hide();
-        li.find(".okayBtn").hide();
-        li.find(".editBtn").show();
-    });
-
-    li.find(".okayBtn").on("click", function () {
-        var input = li.find(".editInput");
-        $.post('http://localhost:3000/products/'+id+'/edit', { editedProduct: input.val() }, function (err, data) {
-            if (!err && !!data) {
-                products[index].name = input.val();
-                renderProductsUI();
-            }
-        })
-    });
-}
-
 function renderProductsUI() {
     var html_string = tml({products:products});
     var html = $(html_string);
-    $('#main').html(html);
+    $('#products-manager').html(html);
     var lis = $('.productsListItem');
 
     lis.find('.deleteBtn').on('click', function () {
