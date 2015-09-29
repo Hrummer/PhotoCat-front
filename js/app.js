@@ -2,8 +2,9 @@
  * Created by vadym on 23.09.15.
  */
 var products = [];
+var searchInput = $('.search');
 
-var tml = Handlebars.compile($('#mainTemplate').html());
+var template = Handlebars.compile($('#mainTemplate').html());
 
 $(document).ready(function () {
     $.get('http://localhost:3000/products', function (data) {
@@ -13,19 +14,16 @@ $(document).ready(function () {
 });
 
 function renderProductsUI() {
-    var html_string = tml({products:products});
-    var html = $(html_string);
-    $('#products-manager').html(html);
+    var htmlString = template({products:products});
+    $('#products-manager').html(htmlString);
     var lis = $('.productsListItem');
 
     lis.find('.deleteBtn').on('click', function () {
         var li = $(this).parent();
         var product = products[li.attr('data-index')];
-        $.post('http://localhost:3000/products/'+product.id+'/delete', function (err, data) {
-            if (!err && !!data) {
-                products.splice(li.attr('data-index'), 1);
-                renderProductsUI();
-            }
+        $.post('http://localhost:3000/products/'+product.id+'/delete', function () {
+            products.splice(li.attr('data-index'), 1);
+            renderProductsUI();
         })
     });
 
@@ -51,18 +49,37 @@ function renderProductsUI() {
         var li = $(this).parent();
         var product = products[li.attr('data-index')];
         var input = li.find(".editInput");
-        $.post('http://localhost:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function (err, data) {
-            if (!err && !!data) {
+        $.post('http://localhost:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function () {
                 product.name = input.val();
                 renderProductsUI();
-            }
         });
     });
     $('.addProduct').on('click',function () {
         var product = $('.productsInput').val();
-        $.post('http://localhost:3000/products/add', { newProduct: product }, function (err, data) {
+        $.post('http://localhost:3000/products/add', { newProduct: product }, function (data) {
             products.push({id:data, name:product});
             renderProductsUI();
         });
     });
 }
+
+function search (arrayOfObjects, value) {
+    return arrayOfObjects.filter(function (product) {
+        return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
+    })
+}
+
+function searchAndRender () {
+        var cachedProducts = products;
+        products = search(products, searchInput.val());
+        renderProductsUI();
+        products = cachedProducts;
+}
+
+searchInput.on('keyup', function (e) {
+    if (e.keyCode === 13) searchAndRender()
+});
+
+searchInput.on('input', setTimeout.bind(null, searchAndRender, 1000));
+
+$('.searchBtn').on('click', searchAndRender);
