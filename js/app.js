@@ -9,7 +9,7 @@ var template = Handlebars.compile($('#mainTemplate').html());
 $(document).ready(function () {
     $.get('http://localhost:3000/products', function (data) {
         products = data;
-        renderProductsUI()
+        renderProductsUI();
     })
 });
 
@@ -24,7 +24,7 @@ function renderProductsUI() {
         $.post('http://localhost:3000/products/'+product.id+'/delete', function () {
             products.splice(li.attr('data-index'), 1);
             renderProductsUI();
-        })
+        });
     });
 
     lis.find(".editBtn").on("click", function () {
@@ -54,13 +54,22 @@ function renderProductsUI() {
                 renderProductsUI();
         });
     });
-    $('.addProduct').on('click',function () {
-        var product = $('.productsInput').val();
+
+    var productsInput = $('.productsInput');
+
+    function addProduct () {
+        var product = productsInput.val();
         $.post('http://localhost:3000/products/add', { newProduct: product }, function (data) {
             products.push({id:data, name:product});
             renderProductsUI();
         });
+    }
+
+    productsInput.on('keyup', function (e) {
+        if (e.keyCode === 13) addProduct();
     });
+
+    $('.addProduct').on('click', addProduct);
 }
 
 function search (arrayOfObjects, value) {
@@ -77,9 +86,24 @@ function searchAndRender () {
 }
 
 searchInput.on('keyup', function (e) {
-    if (e.keyCode === 13) searchAndRender()
+    if (e.keyCode === 13) searchAndRender();
 });
 
-searchInput.on('input', setTimeout.bind(null, searchAndRender, 1000));
+function notFrequentThan (func, delay) {
+    var calls = 0;
+    return function () {
+        var args = Array.prototype.slice.call(arguments);
+        var self = this;
+        calls++;
+        setTimeout(function () {
+            calls--;
+            if (calls === 0) func.apply(self,args);
+        },delay);
+    }
+}
+
+var delayedSearchAndRender = notFrequentThan(searchAndRender, 500);
+
+searchInput.on('input', delayedSearchAndRender);
 
 $('.searchBtn').on('click', searchAndRender);
