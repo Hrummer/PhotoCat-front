@@ -2,58 +2,74 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="css/styles.css">
     <title>Products manager</title>
 </head>
 <body>
 
-<header class="header">
-    <div class="logo-place">
-        @user<span class="logo-place_span">Name</span>
+<header class="header container-fluid">
+    <div class="row">
+    <div class="logo-place col-xs-4 col-md-2">
+        <div class="logo-name">@userName</div>
     </div>
-    <div class="heading-place">
-                <span class="heading">
-                    Products Manager
-                </span>
+    <div class="heading col-xs-8 col-md-10">
+        <div class="heading-name">
+            Products Manager
+        </div>
+        <div class="search-place">
+            <ul class="nav navbar-nav">
+                <li>
+                    <input class="search"  type="text" placeholder="Search product">
+                </li>
+                <li>
+                    <button class="searchBtn">
+                        Search
+                    </button>
+                </li>
+            </ul>
+        </div>
     </div>
-    <div class="nav-place">
-        <input class="search"  type="text" placeholder="поиск по продуктам">
-        <button class="searchBtn">
-            Искать
-        </button>
-        <a class="notification"><img src="images/user.png" width="22" height="22"></a>
-        <a class="exit" href="index.html">Выход</a>
     </div>
 </header>
-<aside class="aside">
-    <nav class="navigation">
-        <a class="navbar"><img src="images/home.png">Домой</a>
-    </nav>
-</aside>
-<section class="main-container">
-    <div id="products-manager">
+<div class="container-fluid">
+    <div class="row">
+        <aside class="aside col-xs-4 col-md-2">
+            <nav class="navigation">
+                <a class="navItem"><img src="images/home.png">Home</a>
+            </nav>
+        </aside>
+        <section class="main-container col-xs-8 col-md-10 col-md-offset-2 col-xs-offset-4">
+            <div id="products-manager" class="row">
 
+            </div>
+        </section>
     </div>
+
+</div>
+
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/handlebars/handlebars.min.js"></script>
     <script id="mainTemplate" type="text/x-handlebars-template">
-        <p class="listName">Products list</p>
-        <input type="text" class="productsInput" placeholder="Add product">
-        <button class="addProduct">Add Product</button>
-        <ul class="productsList">
-            {{#each products as |product|}}
-            <li class="productsListItem" data-index="{{@index}}">
-                {{product.name}}<br>
-                <button class="deleteBtn">Delete</button>
-                <input type="text" class="editInput" placeholder="Edit product">
-                <button class="editBtn">Edit</button>
-                <button class="cancelBtn">Cancel</button>
-                <button class="okayBtn">Okay</button>
-            </li>
-            {{/each}}
-        </ul>
+        <div class="template-container col-md-12 col-md-offset-1">
+            <p class="listName">Products list</p>
+            <input type="text" class="productsInput" placeholder="Add product">
+            <button class="addProduct">Add Product</button> <span class="addingWarn">Product name is too long</span>
+            <ul class="productsList">
+                {{#each products as |product|}}
+                <li class="productsListItem" data-index="{{@index}}">
+                    {{product.name}}<br>
+                    <button class="deleteBtn">Delete</button>
+                    <input type="text" class="editInput" placeholder="Edit product">
+                    <span class="warn">Product name is too long</span> <br class="warn">
+                    <button class="editBtn">Edit</button>
+                    <button class="cancelBtn">Cancel</button>
+                    <button class="okayBtn">Okay</button>
+                </li>
+                {{/each}}
+            </ul>
+        </div>
     </script>
     <script src="js/app.js"></script>
-</section>
 </body>
 </html>

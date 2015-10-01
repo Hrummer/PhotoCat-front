@@ -1,14 +1,3 @@
-@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,700,300italic,400italic,700italic&subset=latin,cyrillic);
-
-* {
-    margin: 0;
-    padding: 0;
-}
-
-a, button {
-    cursor: pointer;
-}
-
 body {
     font-family: 'Open Sans', sans-serif;
     font-weight: 300;
@@ -17,175 +6,118 @@ body {
     height: 100%;
 }
 
+input {
+    border-radius: 5px;
+    transition: 0.33s;
+}
+
+button {
+    background: #59c2e6;
+    border-radius: 5px;
+    color: #fff;
+    transition: 0.33s;
+}
+
+input:hover::-webkit-input-placeholder {
+    color: #636363;
+}
+
+input:hover::-moz-placeholder {
+    color: #636363;
+}
+
+input:hover:-ms-input-placeholder {
+    color: #636363;
+}
+
+input:hover {
+    transition: 0.33s;
+    background: #AEB5BB;
+}
+
+button:hover {
+    background: #6a9fc3;
+    transition: 0.33s
+}
+
 .header {
-    display: table;
-    width: 100%;
-    height: 80px;
+    height: 60px;
 }
 
-.logo-place, .heading-place, .nav-place {
-    display: table-cell;
-    vertical-align: middle;
-    height: 10%;
+.heading {
+    background: white;
+    height: 60px;
 }
 
-.logo-place {
-    width: 15%;
-    text-align: center;
+.logo-place{
+    height: 60px;
     background: #354556;
     color: #ffffff;
 }
 
-.logo-place_span {
-    font-weight: 700;
-}
-
-.heading-place {
-    width: 25%;
-    background: white;
-}
-
-.heading {
-    margin-left: 55px;
-    font-weight: 800;
-}
-
-.nav-place {
-    width: 60%;
-    background: white;
-    text-align: right;
-    padding-right: 25px;
-}
-
-.search {
-    padding: 5px 0 5px 40px;
-    border-radius: 5px;
-    background: url('') no-repeat 10px center;
+.logo-name {
     height: 50%;
-}
-
-.searchBtn {
-    width: 100px;
-    background: #59c2e6;
-    border-radius: 5px;
-    color: #fff;
+    margin-top: 15px;
     text-align: center;
-    height: 50%;
-    outline: none;
-}
-
-.notification {
-    border-left: 2px solid #D0D8E0;
-    border-right: 2px solid #D0D8E0;
-    margin: 0 20px;
-    padding: 0 20px;
-}
-
-.exit {
-    text-decoration: none;
 }
 
 .aside {
-    width: 15%;
+    padding: 0;
     height: 100%;
     background: #4F5F6F;
     position: absolute;
+}
+
+.heading-name {
+    float: left;
+    height: 50%;
+    font-weight: 900;
+    margin: 15px 0 0 8%;
+}
+
+.search-place {
+    height: 50%;
+    margin: 12px 0 0 30%;
 }
 
 .navigation {
     width: 100%;
 }
 
-.navbar {
+.navItem {
+    width: 100%;
     display: block;
-    padding: 7% 0;
+    margin: 7% 0 0 15%;
     font-weight: 300;
-    font-size: medium;
     color: #AEB5BB;
     transition: 0.33s;
 }
 
-.navbar img {
+.navItem img {
     padding: 0 7%;
-    margin-bottom: -2%;
-}
-
-.navbar:active {
-    background-color: #2dc0e8;
-    color: #ffffff;
-}
-
-.navbar:hover {
-    background-color: #3d4f60;
-    color: #ffffff;
-    transition: 0.33s;
-}
-
-.main-container {
-    width: 85%;
-    height: 100%;
-    margin-left: 15%;
-}
-
-#products-manager {
-    padding: 2% 0 0 7%;
-}
-
-.listName {
-    font-weight: 600;
-}
-
-.editInput {
-    padding: 5px 0 5px 5px;
-    border-radius: 5px;
-    height: 50%;
-    display: none
+    margin-bottom: 4%;
 }
 
 .cancelBtn {display: none}
 
 .okayBtn {display: none}
 
-.productsInput {
-    padding: 5px 0 5px 5px;
-    border-radius: 5px;
-    height: 50%;
+.editInput {display: none}
+
+.template-container {
+    margin-top: 1%;
 }
 
-.addProduct {
-    width: 100px;
-    background: #59c2e6;
-    border-radius: 5px;
-    color: #fff;
-    text-align: center;
-    line-height: 24px;
-    outline: none;
+.listName {
+    font-weight: 600;
 }
 
-.productsList {
-    padding-top: 1.1%;
-    margin-left: 2%;
+.warn {
+    color:red;
+    display: none;
 }
 
-.productsList button {
-    width: 50px;
-    background: #59c2e6;
-    border-radius: 5px;
-    color: #fff;
-    text-align: center;
-    line-height: 20px;
-    outline: none;
-}
-
-input {transition: 0.33s}
-button {transition: 0.33s}
-
-input:hover {
-    background-color: #4F5F6F;
-    transition: 0.33s;
-}
-
-button:hover {
-    background-color:cornflowerblue;
-    transition: 0.33s
+.addingWarn {
+    color:red;
+    display: none;
 }
