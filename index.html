@@ -54,7 +54,9 @@
         <div class="template-container col-md-12 col-md-offset-1">
             <p class="listName">Products list</p>
             <input type="text" class="productsInput" placeholder="Add product">
-            <button class="addProduct">Add Product</button> <span class="addingWarn">Product name is too long</span>
+            <button class="addProduct">Add Product</button>
+            <span class="addingWarn">Product name is too long</span>
+            <span class="addingEmptyWarn">Product name can't be empty</span>
             <ul class="productsList">
                 {{#each products as |product|}}
                 <li class="productsListItem" data-index="{{@index}}">
@@ -62,6 +64,7 @@
                     <button class="deleteBtn">Delete</button>
                     <input type="text" class="editInput" placeholder="Edit product">
                     <span class="warn">Product name is too long</span> <br class="warn">
+                    <span class="emptyWarn">Product name can't be empty</span> <br class="emptyWarn">
                     <button class="editBtn">Edit</button>
                     <button class="cancelBtn">Cancel</button>
                     <button class="okayBtn">Okay</button>

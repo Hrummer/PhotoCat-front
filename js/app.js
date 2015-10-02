@@ -48,46 +48,55 @@ function renderProductsUI() {
     lis.find('.editInput').on('input', function () {
         var input = $(this);
         var li = $(this).parent();
-        
-        if (input.val().length > 30) {
-            li.find('.warn').show()
-        }
-        else li.find('.warn').hide()        
-    });
-    
-    lis.find('.editInput').on('keyup', function (e) {
-        if (e.keyCode === 13){
-            var li = $(this).parent();
-            var input = $(this);
-            if (input.val().length > 30) return;
-            else {
-                var product = products[li.attr('data-index')];
-                $.post('http://localhost:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function () {
-                    product.name = input.val();
-                    renderProductsUI();
-                });
-            }
-        }
+        if (input.val().length > 30) li.find('.warn').show();
+        else li.find('.warn').hide();
+
     });
 
-    lis.find('.okayBtn').on('click', function () {
+    function editingProduct () {
         var li = $(this).parent();
         var product = products[li.attr('data-index')];
         var input = li.find('.editInput');
-        if (input.val().length > 30) return;
-        else{
+        if (input.val().length > 30 || input.val().length === 0) return;
+        else {
             $.post('http://localhost:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function () {
                 product.name = input.val();
                 renderProductsUI();
             });
         }
+    }
+
+    lis.find('.editInput').on('keyup', function (e) {
+        if (e.keyCode === 13) {
+            var li = $(this).parent();
+            var input = li.find('.editInput');
+            if (input.val().length === 0) {
+              li.find('.emptyWarn').show();
+              setTimeout(function () {
+                  li.find('.emptyWarn').hide()
+              }, 3000);
+            }
+            else editingProduct.call(this);
+        }
+    });
+
+    lis.find('.okayBtn').on('click', function () {
+        var li = $(this).parent();
+        var input = li.find('.editInput');
+        if (input.val().length === 0) {
+            li.find('.emptyWarn').show();
+            setTimeout(function () {
+                li.find('.emptyWarn').hide()
+            }, 3000);
+        }
+        else editingProduct.call(this);
     });
 
     var productsInput = $('.productsInput');
 
     function addProduct () {
         var product = productsInput.val();
-        if (product.length > 30) return;
+        if (product.length > 30 || product.length === 0) return;
         else{
             $.post('http://localhost:3000/products/add', { newProduct: product }, function (data) {
                 products.push({id:data, name:product});
@@ -98,16 +107,34 @@ function renderProductsUI() {
 
     productsInput.on('input', function () {
         if (productsInput.val().length > 30) {
-            $('.addingWarn').show()
+            $('.addingWarn').show();
         }
-        else $('.addingWarn').hide()
+        else $('.addingWarn').hide();
     });
 
     productsInput.on('keyup', function (e) {
-        if (e.keyCode === 13) addProduct();
+        if (e.keyCode === 13) {
+            if (productsInput.val().length === 0) {
+                var warn = $('.addingEmptyWarn');
+                warn.show();
+                setTimeout(function () {
+                    warn.hide();
+                }, 3000)
+            }
+            else addProduct();
+        }
     });
 
-    $('.addProduct').on('click', addProduct);
+    $('.addProduct').on('click', function () {
+        if (productsInput.val().length === 0) {
+            var warn = $('.addingEmptyWarn');
+            warn.show();
+            setTimeout(function () {
+                warn.hide();
+            }, 3000)
+        }
+        else addProduct();
+    });
 }
 
 function search (arrayOfObjects, value) {
