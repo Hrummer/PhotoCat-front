@@ -45,102 +45,107 @@ function renderProductsUI() {
         li.find('.editBtn').show();
     });
 
-    lis.find('.editInput').on('input', function () {
-        var input = $(this);
-        var li = $(this).parent();
-        if (input.val().length > 30) li.find('.warn').show();
-        else li.find('.warn').hide();
-
-    });
-
     function editingProduct () {
         var li = $(this).parent();
         var product = products[li.attr('data-index')];
-        var input = li.find('.editInput');
-        if (input.val().length > 30 || input.val().length === 0) return;
-        else {
-            $.post('http://46.101.216.31:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function () {
-                product.name = input.val();
-                renderProductsUI();
-            });
-        }
+        var editedProduct = li.find('.editInput').val().trim();
+
+        $.post('http://46.101.216.31:3000/products/'+product.id+'/edit', { editedProduct: editedProduct }, function () {
+            product.name = editedProduct;
+            renderProductsUI();
+        });
     }
 
-    lis.find('.editInput').on('keyup', function (e) {
-        if (e.keyCode === 13) {
-            var li = $(this).parent();
-            var input = li.find('.editInput');
-            if (input.val().length === 0) {
-              li.find('.emptyWarn').show();
-              setTimeout(function () {
-                  li.find('.emptyWarn').hide()
-              }, 3000);
-            }
-            else editingProduct.call(this);
-        }
+    lis.find('.editInput').on('input', function () {
+        var inputValue = $(this).val();
+        var li = $(this).parent();
+        var warn = li.find('.warn');
+        (inputValue.length > 30) ? warn.show() : warn.hide();
+
     });
 
-    lis.find('.okayBtn').on('click', function () {
+    function editFieldValidation () {
         var li = $(this).parent();
         var input = li.find('.editInput');
-        if (input.val().length === 0) {
-            li.find('.emptyWarn').show();
+        var editedProduct = li.find('.editInput').val().trim();
+        if (editedProduct.length === 0) {
+            var warn = li.find('.emptyWarn');
+            input.val('');
+            warn.show();
             setTimeout(function () {
-                li.find('.emptyWarn').hide()
+                warn.hide()
             }, 3000);
         }
-        else editingProduct.call(this);
-    });
-
-    var productsInput = $('.productsInput');
-
-    function addProduct () {
-        var product = productsInput.val();
-        if (product.length > 30 || product.length === 0) return;
-        else{
-            $.post('http://46.101.216.31:3000/products/add', { newProduct: product }, function (data) {
-                products.push({id:data, name:product});
-                renderProductsUI();
-            });
-        }
-    }
-
-    productsInput.on('input', function () {
-        if (productsInput.val().length > 30) {
-            $('.addingWarn').show();
-        }
-        else $('.addingWarn').hide();
-    });
-
-    productsInput.on('keyup', function (e) {
-        if (e.keyCode === 13) {
-            if (productsInput.val().length === 0) {
-                var warn = $('.addingEmptyWarn');
-                warn.show();
-                setTimeout(function () {
-                    warn.hide();
-                }, 3000)
-            }
-            else addProduct();
-        }
-    });
-
-    $('.addProduct').on('click', function () {
-        if (productsInput.val().length === 0) {
-            var warn = $('.addingEmptyWarn');
+        else if (input.val().length > 30) return;
+        else if (search(products, editedProduct).length) {
+            var warn = li.find('.duplicateWarn');
             warn.show();
             setTimeout(function () {
                 warn.hide();
             }, 3000)
         }
+        else editingProduct.call(this);
+    }
+
+    lis.find('.editInput').on('keyup', function (e) {
+        if (e.keyCode === 13) {
+            editFieldValidation.call(this);
+        }
+    });
+
+    lis.find('.okayBtn').on('click', function () {
+      editFieldValidation.call(this);
+    });
+
+    var productsInput = $('.productsInput');
+
+    function addProduct () {
+        var product = productsInput.val().trim();
+        $.post('http://46.101.216.31:3000/products/add', { newProduct: product }, function (data) {
+            products.push({id:data, name:product});
+            renderProductsUI();
+        });
+    }
+
+    productsInput.on('input', function () {
+        var warn = $('.addingWarn');
+         (productsInput.val().length > 30) ? warn.show() : warn.hide();
+    });
+
+    function addFieldValidation () {
+        var newProduct = productsInput.val().trim();
+        if (newProduct.length === 0) {
+            productsInput.val('');
+            var warn = $('.addingEmptyWarn');
+            warn.show();
+            setTimeout(function () {
+                warn.hide();
+            }, 3000);
+        }
+        else  if (productsInput.val() > 30) return;
+        else  if (search(products, newProduct).length) {
+            var warn = $('.addingDuplicateWarn');
+            warn.show();
+            setTimeout(function () {
+                warn.hide()
+            }, 3000);
+        }
         else addProduct();
+    }
+
+    productsInput.on('keyup', function (e) {
+        if (e.keyCode === 13) addFieldValidation();
+    });
+
+    $('.addProduct').on('click', function () {
+        addFieldValidation();
     });
 }
 
 function search (arrayOfObjects, value) {
     return arrayOfObjects.filter(function (product) {
         return product.name.toLowerCase().indexOf(value.toLowerCase()) !== -1;
-    })
+    });
 }
 
 function searchAndRender () {

@@ -57,6 +57,7 @@
             <button class="addProduct">Add Product</button>
             <span class="addingWarn">Product name is too long</span>
             <span class="addingEmptyWarn">Product name can't be empty</span>
+            <span class="addingDuplicateWarn">Product with such name is already exists</span>
             <ul class="productsList">
                 {{#each products as |product|}}
                 <li class="productsListItem" data-index="{{@index}}">
@@ -65,6 +66,7 @@
                     <input type="text" class="editInput" placeholder="Edit product">
                     <span class="warn">Product name is too long</span> <br class="warn">
                     <span class="emptyWarn">Product name can't be empty</span> <br class="emptyWarn">
+                    <span class="duplicateWarn">Product with such name is already exists</span> <br class="duplicateWarn">
                     <button class="editBtn">Edit</button>
                     <button class="cancelBtn">Cancel</button>
                     <button class="okayBtn">Okay</button>
