@@ -7,7 +7,7 @@ var searchInput = $('.search');
 var template = Handlebars.compile($('#mainTemplate').html());
 
 $(document).ready(function () {
-    $.get('http://localhost:3000/products', function (data) {
+    $.get('http://46.101.216.31:3000/products', function (data) {
         products = data;
         renderProductsUI();
     })
@@ -21,7 +21,7 @@ function renderProductsUI() {
     lis.find('.deleteBtn').on('click', function () {
         var li = $(this).parent();
         var product = products[li.attr('data-index')];
-        $.post('http://localhost:3000/products/'+product.id+'/delete', function () {
+        $.post('http://46.101.216.31:3000/products/'+product.id+'/delete', function () {
             products.splice(li.attr('data-index'), 1);
             renderProductsUI();
         });
@@ -59,7 +59,7 @@ function renderProductsUI() {
         var input = li.find('.editInput');
         if (input.val().length > 30 || input.val().length === 0) return;
         else {
-            $.post('http://localhost:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function () {
+            $.post('http://46.101.216.31:3000/products/'+product.id+'/edit', { editedProduct: input.val() }, function () {
                 product.name = input.val();
                 renderProductsUI();
             });
@@ -98,7 +98,7 @@ function renderProductsUI() {
         var product = productsInput.val();
         if (product.length > 30 || product.length === 0) return;
         else{
-            $.post('http://localhost:3000/products/add', { newProduct: product }, function (data) {
+            $.post('http://46.101.216.31:3000/products/add', { newProduct: product }, function (data) {
                 products.push({id:data, name:product});
                 renderProductsUI();
             });

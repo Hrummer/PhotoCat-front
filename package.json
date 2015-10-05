@@ -1,0 +1,22 @@
+{
+  "name": "PhotoCat-front",
+  "version": "0.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Hrummer/PhotoCat-front"
+  },
+  "author": "Hrummer <vadymhomyak@gmail.com>",
+  "license": "none",
+  "bugs": {
+    "url": "https://github.com/Hrummer/PhotoCat-front/issues"
+  },
+  "homepage": "https://github.com/Hrummer/PhotoCat-front",
+  "dependencies": {
+    "express": "^4.13.3"
+  }
+}
