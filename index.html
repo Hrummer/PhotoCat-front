@@ -51,22 +51,24 @@
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/handlebars/handlebars.min.js"></script>
     <script id="mainTemplate" type="text/x-handlebars-template">
-        <div class="template-container col-md-12 col-md-offset-1">
+        <div class="template-container col-md-10 col-md-offset-1">
             <p class="listName">Products list</p>
             <input type="text" class="productsInput" placeholder="Add product">
             <button class="addProduct">Add Product</button>
             <span class="addingWarn">Product name is too long</span>
             <span class="addingEmptyWarn">Product name can't be empty</span>
             <span class="addingDuplicateWarn">Product with such name is already exists</span>
+            <span class="addingSpecialCharactersWarn">Product name can contain only letters, digits and spaces</span>
             <ul class="productsList">
                 {{#each products as |product|}}
                 <li class="productsListItem" data-index="{{@index}}">
                     {{product.name}}<br>
                     <button class="deleteBtn">Delete</button>
                     <input type="text" class="editInput" placeholder="Edit product">
-                    <span class="warn">Product name is too long</span> <br class="warn">
-                    <span class="emptyWarn">Product name can't be empty</span> <br class="emptyWarn">
-                    <span class="duplicateWarn">Product with such name is already exists</span> <br class="duplicateWarn">
+                    <br class="warn"><span class="warn">Product name is too long</span><br class="warn">
+                    <br class="emptyWarn"><span class="emptyWarn">Product name can't be empty</span><br class="emptyWarn">
+                    <br class="duplicateWarn"><span class="duplicateWarn">Product with such name is already exists</span><br class="duplicateWarn">
+                    <br class="specialCharactersWarn"><span class="specialCharactersWarn">Product name can contain only letters, digits and spaces</span><br class="specialCharactersWarn">
                     <button class="editBtn">Edit</button>
                     <button class="cancelBtn">Cancel</button>
                     <button class="okayBtn">Okay</button>

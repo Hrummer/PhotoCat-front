@@ -43,6 +43,10 @@ function renderProductsUI() {
         li.find('.cancelBtn').hide();
         li.find('.okayBtn').hide();
         li.find('.editBtn').show();
+        var warns = [li.find('.emptyWarn'), li.find('.duplicateWarn'), li.find('.specialCharactersWarn')];
+        warns.forEach(function (item) {
+            item.hide();
+        });
     });
 
     function editingProduct () {
@@ -56,33 +60,44 @@ function renderProductsUI() {
         });
     }
 
+
     lis.find('.editInput').on('input', function () {
         var inputValue = $(this).val();
         var li = $(this).parent();
+        var warns = [li.find('.emptyWarn'), li.find('.duplicateWarn'), li.find('.specialCharactersWarn')];
+        warns.forEach(function (item) {
+            item.hide();
+        });
         var warn = li.find('.warn');
         (inputValue.length > 30) ? warn.show() : warn.hide();
 
     });
 
+    function removeSpaces (value) {
+        return value.trim().replace(/\s{2,}/, " ");
+    }
+
+    function hasSpecialCharacters (value) {
+        return /[^а-яА-ЯёЁa-zA-Z0-9\s]+?/.test(value);
+    }
+
     function editFieldValidation () {
         var li = $(this).parent();
         var input = li.find('.editInput');
-        var editedProduct = li.find('.editInput').val().trim();
+        var editedProduct = removeSpaces(input.val());
         if (editedProduct.length === 0) {
             var warn = li.find('.emptyWarn');
             input.val('');
             warn.show();
-            setTimeout(function () {
-                warn.hide()
-            }, 3000);
         }
         else if (input.val().length > 30) return;
+        else if (hasSpecialCharacters(editedProduct)) {
+            var warn = li.find('.specialCharactersWarn');
+            warn.show();
+        }
         else if (search(products, editedProduct).length) {
             var warn = li.find('.duplicateWarn');
             warn.show();
-            setTimeout(function () {
-                warn.hide();
-            }, 3000)
         }
         else editingProduct.call(this);
     }
@@ -109,11 +124,15 @@ function renderProductsUI() {
 
     productsInput.on('input', function () {
         var warn = $('.addingWarn');
+        var warns = [$('.addingEmptyWarn'), $('.addingSpecialCharactersWarn'), $('.addingDuplicateWarn')];
+        warns.forEach(function (item) {
+          item.hide();
+        })
          (productsInput.val().length > 30) ? warn.show() : warn.hide();
     });
 
     function addFieldValidation () {
-        var newProduct = productsInput.val().trim();
+        var newProduct = removeSpaces(productsInput.val());
         if (newProduct.length === 0) {
             productsInput.val('');
             var warn = $('.addingEmptyWarn');
@@ -122,12 +141,19 @@ function renderProductsUI() {
                 warn.hide();
             }, 3000);
         }
-        else  if (productsInput.val() > 30) return;
-        else  if (search(products, newProduct).length) {
+        else if (productsInput.val() > 30) return;
+        else if (hasSpecialCharacters(newProduct)) {
+            var warn = $('.addingSpecialCharactersWarn');
+            warn.show();
+            setTimeout(function () {
+                warn.hide();
+            }, 3000);
+        }
+        else if (search(products, newProduct).length) {
             var warn = $('.addingDuplicateWarn');
             warn.show();
             setTimeout(function () {
-                warn.hide()
+                warn.hide();
             }, 3000);
         }
         else addProduct();

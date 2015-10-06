@@ -112,7 +112,7 @@ button:hover {
     font-weight: 600;
 }
 
-.warn, .addingWarn, .emptyWarn, .duplicateWarn, .addingEmptyWarn, .addingDuplicateWarn {
+.warn, .addingWarn, .emptyWarn, .duplicateWarn, .specialCharactersWarn, .addingEmptyWarn, .addingDuplicateWarn, .addingSpecialCharactersWarn{
     color:red;
     display: none;
 }
