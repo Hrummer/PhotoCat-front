@@ -92,7 +92,7 @@ function renderProductsUI() {
             var warn = li.find('.specialCharactersWarn');
             warn.show();
         }
-        else if (search(products, editedProduct).length) {
+        else if (products.indexOf(editedProduct) !== -1) {
             var warn = li.find('.duplicateWarn');
             warn.show();
         }
@@ -141,7 +141,7 @@ function renderProductsUI() {
             var warn = $('.addingSpecialCharactersWarn');
             warn.show();
         }
-        else if (search(products, newProduct).length) {
+        else if (products.indexOf(newProduct) !== -1) {
             var warn = $('.addingDuplicateWarn');
             warn.show();
         }
