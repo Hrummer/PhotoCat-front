@@ -53,13 +53,11 @@ function renderProductsUI() {
         var li = $(this).parent();
         var product = products[li.attr('data-index')];
         var editedProduct = li.find('.editInput').val().trim();
-
         $.post('http://46.101.216.31:3000/products/'+product.id+'/edit', { editedProduct: editedProduct }, function () {
             product.name = editedProduct;
             renderProductsUI();
         });
     }
-
 
     lis.find('.editInput').on('input', function () {
         var inputValue = $(this).val();
@@ -70,7 +68,6 @@ function renderProductsUI() {
         });
         var warn = li.find('.warn');
         (inputValue.length > 30) ? warn.show() : warn.hide();
-
     });
 
     function removeSpaces (value) {
@@ -133,28 +130,20 @@ function renderProductsUI() {
 
     function addFieldValidation () {
         var newProduct = removeSpaces(productsInput.val());
+        console.log(newProduct);
         if (newProduct.length === 0) {
             productsInput.val('');
             var warn = $('.addingEmptyWarn');
             warn.show();
-            setTimeout(function () {
-                warn.hide();
-            }, 3000);
         }
-        else if (productsInput.val() > 30) return;
+        else if (productsInput.val().length > 30) return;
         else if (hasSpecialCharacters(newProduct)) {
             var warn = $('.addingSpecialCharactersWarn');
             warn.show();
-            setTimeout(function () {
-                warn.hide();
-            }, 3000);
         }
         else if (search(products, newProduct).length) {
             var warn = $('.addingDuplicateWarn');
             warn.show();
-            setTimeout(function () {
-                warn.hide();
-            }, 3000);
         }
         else addProduct();
     }
